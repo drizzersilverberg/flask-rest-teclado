@@ -12,6 +12,18 @@ items = []
 
 
 class Item(Resource):
+    parser = reqparse.RequestParser()
+    parser.add_argument('name',
+                        type=str,
+                        required=True,
+                        help="This field cannot be left blank."
+                        )
+    parser.add_argument('price',
+                        type=float,
+                        required=True,
+                        help="This field cannot be left blank."
+                        )
+
     @jwt_required()
     def get(self, name):
         item = next(filter(lambda x: x['name'] == name, items), None)
@@ -23,19 +35,7 @@ class Item(Resource):
         return {'message': 'Item deleted'}
 
     def put(self, name):
-        parser = reqparse.RequestParser()
-        parser.add_argument('name',
-                            type=str,
-                            required=True,
-                            help="This field cannot be left blank."
-                            )
-        parser.add_argument('price',
-                            type=float,
-                            required=True,
-                            help="This field cannot be left blank."
-                            )
-
-        data = parser.parse_args()
+        data = Item.parser.parse_args()
 
         item = next(filter(lambda x: x['name'] == name, items), None)
         if item is None:
@@ -47,11 +47,24 @@ class Item(Resource):
 
 
 class Items(Resource):
+    parser = reqparse.RequestParser()
+    parser.add_argument('name',
+                        type=str,
+                        required=True,
+                        help="This field cannot be left blank."
+                        )
+    parser.add_argument('price',
+                        type=float,
+                        required=True,
+                        help="This field cannot be left blank."
+                        )
+
     def get(self):
         return {'items': items}, 200
 
     def post(self):
-        data = request.get_json()
+        data = Item.parser.parse_args()
+        # data = request.get_json()
         if next(filter(lambda x: x['name'] == data['name'], items), None):
             return {'message': "An item with name '{}' already exists".format(data['name'])}, 400
         item = {'name': data['name'], 'price': data['price']}
