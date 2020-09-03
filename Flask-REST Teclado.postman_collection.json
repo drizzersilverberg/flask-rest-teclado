@@ -1,0 +1,282 @@
+{
+	"info": {
+		"_postman_id": "4f58b518-3ea7-4197-ac20-f9ad139b795e",
+		"name": "Flask-REST Teclado",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f22cac76-92e5-4abf-990d-5216756de4cf",
+								"exec": [
+									"if (pm.response.code === 200) {\r",
+									"  pm.environment.set(\"token\", pm.response.json().access_token);\r",
+									"}\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"bob\",\r\n    \"password\": \"asdf\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Items",
+			"item": [
+				{
+					"name": "Items",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/items",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Item",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "feacada3-756b-4eec-a4c1-f9bb30cf0cb5",
+								"exec": [
+									"if (pm.response.code === 201) {\r",
+									"  pm.environment.set(\"item\", pm.response.json().name);\r",
+									"}\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{$randomProduct}}\",\r\n    \"price\": {{$randomPrice}}\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/items",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Item (Already Exists)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e38fa6e3-7eaf-4939-92cb-698355be1248",
+								"exec": [
+									"if (pm.response.code === 201) {\r",
+									"  pm.environment.set(\"item\", pm.response.json().name);\r",
+									"}\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{item}}\",\r\n    \"price\": {{$randomPrice}}\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/items",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Item",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "JWT {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/items/{{item}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"items",
+								"{{item}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Item",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "JWT {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/items/{{item}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"items",
+								"{{item}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Item",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a10f7cb4-c7e7-4ebe-b610-2e95a0d64571",
+								"exec": [
+									"if (pm.response.code === 200) {\r",
+									"    pm.environment.set(\"item\", pm.response.json().name);\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "JWT {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{$randomProduct}}\",\r\n    \"price\": {{$randomPrice}}\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/items/{{item}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"items",
+								"{{item}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
