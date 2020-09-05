@@ -6,8 +6,6 @@ def authenticate(username, password):
     user = User.find_by_username(username)
     if user and safe_str_cmp(user.password, password):
         return user
-    else:
-        return false
 
 
 def identity(payload):
