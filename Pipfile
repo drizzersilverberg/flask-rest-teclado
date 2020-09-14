@@ -10,6 +10,7 @@ flask = "*"
 flask-restful = "*"
 flask-jwt = "*"
 autopep8 = "*"
+flask-sqlalchemy = "*"
 
 [requires]
 python_version = "3.8"
