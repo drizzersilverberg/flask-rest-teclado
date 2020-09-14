@@ -9,6 +9,7 @@ verify_ssl = true
 flask = "*"
 flask-restful = "*"
 flask-jwt = "*"
+autopep8 = "*"
 
 [requires]
 python_version = "3.8"
