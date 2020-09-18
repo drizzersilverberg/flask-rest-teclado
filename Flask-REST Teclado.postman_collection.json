@@ -34,6 +34,11 @@
 								"key": "Content-Type",
 								"type": "text",
 								"value": "application/json"
+							},
+							{
+								"key": "Cache-Control",
+								"value": "no-cache",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -47,6 +52,50 @@
 							],
 							"path": [
 								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "68cb46a5-6bd7-4083-be8a-1ecc871d0100",
+								"exec": [
+									"if (pm.response.code === 201) {\r",
+									"\r",
+									"}\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"bob\",\r\n    \"password\": \"asdf\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"register"
 							]
 						}
 					},
@@ -111,7 +160,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"{{$randomProduct}}\",\r\n    \"price\": {{$randomPrice}}\r\n}"
+							"raw": "{\r\n    \"name\": \"{{$randomProduct}}\",\r\n    \"price\": {{$randomPrice}},\r\n    \"store_id\": {{store}}\r\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}/items",
@@ -200,35 +249,6 @@
 				},
 				{
 					"name": "Item",
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							},
-							{
-								"key": "Authorization",
-								"value": "JWT {{token}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{base_url}}/items/{{item}}",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"items",
-								"{{item}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Item",
 					"event": [
 						{
 							"listen": "test",
@@ -259,7 +279,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"{{$randomProduct}}\",\r\n    \"price\": {{$randomPrice}}\r\n}"
+							"raw": "{\r\n    \"name\": \"{{$randomProduct}}\",\r\n    \"price\": {{$randomPrice}},\r\n    \"store_id\": {{store}}\r\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}/items/{{item}}",
@@ -269,6 +289,172 @@
 							"path": [
 								"items",
 								"{{item}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Item",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "JWT {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/items/{{item}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"items",
+								"{{item}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Stores",
+			"item": [
+				{
+					"name": "Stores",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/stores",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"stores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Store",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/stores/{{store}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"stores",
+								"{{store}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Store",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3d5383a9-b183-42e8-927b-c2bfdf43e743",
+								"exec": [
+									"if (pm.response.code === 201) {\r",
+									"  pm.environment.set(\"store\", pm.response.json().id);\r",
+									"}\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{$randomCompanyName}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/stores",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"stores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Store",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "38cb4e06-bdfe-44bd-a245-b3f64b0a8ad0",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{$randomCompanyName}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/stores/{{store}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"stores",
+								"{{store}}"
 							]
 						}
 					},

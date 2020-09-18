@@ -41,7 +41,7 @@ class Item(Resource):
         item = ItemModel.find_by_name(name)
 
         if item:
-            item = ItemModel(name, **data)
+            item = ItemModel(**data)
         else:
             item.price = data['price']
 

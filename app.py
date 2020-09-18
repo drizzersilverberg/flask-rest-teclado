@@ -6,6 +6,7 @@ from security import authenticate, identity
 from resources.user import UserRegister
 from resources.item import Item, Items
 from models.store import StoreModel
+from models.item import ItemModel
 from resources.store import Store, StoreList
 
 app = Flask(__name__)
@@ -20,8 +21,8 @@ def create_tables():
 
 jwt = JWT(app, authenticate, identity)
 
-api.add_resource(Store, '/stores/<string:name>')
-api.add_resource(StoreList, 'stores')
+api.add_resource(Store, '/stores/<int:id>')
+api.add_resource(StoreList, '/stores')
 api.add_resource(Item, '/items/<string:name>')
 api.add_resource(Items, '/items')
 api.add_resource(UserRegister, '/register')
