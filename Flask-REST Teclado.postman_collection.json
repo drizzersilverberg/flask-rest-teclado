@@ -46,12 +46,12 @@
 							"raw": "{\r\n    \"username\": \"{{username}}\",\r\n    \"password\": \"password\"\r\n}"
 						},
 						"url": {
-							"raw": "{{base_url}}/auth",
+							"raw": "{{base_url}}/login",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
-								"auth"
+								"login"
 							]
 						}
 					},
@@ -95,12 +95,12 @@
 							"raw": "{\r\n    \"username\": \"bob\",\r\n    \"password\": \"asdf\"\r\n}"
 						},
 						"url": {
-							"raw": "{{base_url}}/auth",
+							"raw": "{{base_url}}/login",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
-								"auth"
+								"login"
 							]
 						}
 					},
@@ -320,7 +320,7 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "JWT {{token}}",
+								"value": "Bearer {{token}}",
 								"type": "text"
 							}
 						],
