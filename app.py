@@ -6,7 +6,8 @@ from resources.user import (
     UserRegister,
     User,
     UserLogin,
-    TokenRefresh
+    TokenRefresh,
+    UserLogout
 )
 from resources.item import Item, Items
 from models.store import StoreModel
@@ -41,7 +42,7 @@ def add_claims_to_jwt(identity):
 
 @jwt.token_in_blacklist_loader
 def check_if_token_in_blacklist(decrypted_token):
-    return decrypted_token['identity'] in BLACKLIST
+    return decrypted_token['jti'] in BLACKLIST
 
 
 @jwt.expired_token_loader
@@ -77,7 +78,7 @@ def token_not_fresh_callback(error):
 
 
 @jwt.revoked_token_loader
-def revoked_token_callback(error):
+def revoked_token_callback():
     return jsonify({
         'description': 'The token has been revoked',
         'error': 'token_revoked'
@@ -92,6 +93,7 @@ api.add_resource(UserRegister, '/register')
 api.add_resource(User, '/users/<int:user_id>')
 api.add_resource(UserLogin, '/login')
 api.add_resource(TokenRefresh, '/refresh')
+api.add_resource(UserLogout, '/logout')
 
 if __name__ == '__main__':
     db.init_app(app)

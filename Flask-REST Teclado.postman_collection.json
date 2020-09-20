@@ -248,6 +248,55 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "85549a60-f45b-4f34-952f-22afe535f3b5",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Cache-Control",
+								"type": "text",
+								"value": "no-cache"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/logout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
