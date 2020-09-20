@@ -204,7 +204,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"{{item}}\",\r\n    \"price\": {{$randomPrice}}\r\n}"
+							"raw": "{\r\n    \"name\": \"{{item}}\",\r\n    \"price\": {{$randomPrice}},\r\n    \"store_id\": {{store}}\r\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}/items",
