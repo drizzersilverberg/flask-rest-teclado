@@ -396,7 +396,7 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "JWT {{token}}",
+								"value": "Bearer {{token}}",
 								"type": "text"
 							}
 						],
