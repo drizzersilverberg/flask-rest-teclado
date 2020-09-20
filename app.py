@@ -27,7 +27,7 @@ api.add_resource(StoreList, '/stores')
 api.add_resource(Item, '/items/<string:name>')
 api.add_resource(Items, '/items')
 api.add_resource(UserRegister, '/register')
-api.add_resource(User, '/user/<int:id>')
+api.add_resource(User, '/users/<int:user_id>')
 
 if __name__ == '__main__':
     db.init_app(app)

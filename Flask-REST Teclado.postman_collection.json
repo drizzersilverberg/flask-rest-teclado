@@ -14,6 +14,55 @@
 						{
 							"listen": "test",
 							"script": {
+								"id": "f3cb81d4-4b80-4b25-a38f-267044351a51",
+								"exec": [
+									"if (pm.response.code === 200) {\r",
+									"  pm.environment.set(\"token\", pm.response.json().access_token);\r",
+									"}\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Cache-Control",
+								"value": "no-cache",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"{{username}}\",\r\n    \"password\": \"password\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Auth (Static Param)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
 								"id": "f22cac76-92e5-4abf-990d-5216756de4cf",
 								"exec": [
 									"if (pm.response.code === 200) {\r",
@@ -64,6 +113,47 @@
 							"listen": "test",
 							"script": {
 								"id": "68cb46a5-6bd7-4083-be8a-1ecc871d0100",
+								"exec": [
+									"if (pm.response.code === 201) {\r",
+									"    pm.environment.set(\"username\", JSON.parse(pm.request.body).username);\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"{{$randomUserName}}\",\r\n    \"password\": \"password\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register (Static Param)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7788e95d-b991-458c-815c-71ba64a377c5",
 								"exec": [
 									"if (pm.response.code === 201) {\r",
 									"\r",
@@ -455,6 +545,60 @@
 							"path": [
 								"stores",
 								"{{store}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "User By Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/users/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User By Id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/users/7",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"7"
 							]
 						}
 					},
