@@ -18,6 +18,7 @@
 								"exec": [
 									"if (pm.response.code === 200) {\r",
 									"  pm.environment.set(\"token\", pm.response.json().access_token);\r",
+									"  pm.environment.set(\"refresh_token\", pm.response.json().refresh_token);\r",
 									"}\r",
 									"\r",
 									"\r",
@@ -67,6 +68,7 @@
 								"exec": [
 									"if (pm.response.code === 200) {\r",
 									"  pm.environment.set(\"token\", pm.response.json().access_token);\r",
+									"  pm.environment.set(\"refresh_token\", pm.response.json().refresh_token);\r",
 									"}\r",
 									"\r",
 									"\r",
@@ -116,6 +118,7 @@
 								"exec": [
 									"if (pm.response.code === 201) {\r",
 									"    pm.environment.set(\"username\", JSON.parse(pm.request.body).username);\r",
+									"    pm.environment.set(\"refresh_token\", pm.response.json().refresh_token);\r",
 									"}"
 								],
 								"type": "text/javascript"
@@ -156,7 +159,8 @@
 								"id": "7788e95d-b991-458c-815c-71ba64a377c5",
 								"exec": [
 									"if (pm.response.code === 201) {\r",
-									"\r",
+									"    pm.environment.set(\"username\", JSON.parse(pm.request.body).username);\r",
+									"    pm.environment.set(\"refresh_token\", pm.response.json().refresh_token);\r",
 									"}\r",
 									"\r",
 									"\r",
@@ -186,6 +190,60 @@
 							],
 							"path": [
 								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fbb5b6fc-ecfd-44b4-b86a-0aa921b75832",
+								"exec": [
+									"if (pm.response.code === 200) {\r",
+									"  pm.environment.set(\"token\", pm.response.json().access_token);\r",
+									"}\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Cache-Control",
+								"type": "text",
+								"value": "no-cache"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{refresh_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/refresh",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"refresh"
 							]
 						}
 					},
