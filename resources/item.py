@@ -21,21 +21,21 @@ _item_parser.add_argument('store_id',
 
 
 class Item(Resource):
-    def get(self, name):
+    def get(self, name: str):
         item = ItemModel.find_by_name(name)
         if item:
             return item.json()
         return {'message': 'Item not found'}, 404
 
     @jwt_required
-    def delete(self, name):
+    def delete(self, name: str):
         item = ItemModel.find_by_name(name)
         if item:
             item.delete_from_db()
 
         return {'message': 'Item deleted'}
 
-    def put(self, name):
+    def put(self, name: str):
         data = _item_parser.parse_args()
 
         item = ItemModel.find_by_name(name)

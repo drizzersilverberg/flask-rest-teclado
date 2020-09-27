@@ -10,13 +10,13 @@ class Store(Resource):
                         help="This field cannot be left blank."
                         )
 
-    def get(self, id):
+    def get(self, id: int):
         store = StoreModel.find_by_id(id)
         if store:
             return store.json()
         return {'message': 'Store not found'}, 404
 
-    def delete(self, id):
+    def delete(self, id: int):
         store = StoreModel.find_by_id(id)
         if store:
             store.delete_from_db()
