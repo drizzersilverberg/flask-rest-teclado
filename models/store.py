@@ -6,7 +6,7 @@ class StoreModel(db.Model):
     __tablename__ = 'stores'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80))
+    name = db.Column(db.String(80), unique=True)
     items = db.relationship('ItemModel', lazy='dynamic')
 
     def __init__(self, name):
@@ -15,7 +15,7 @@ class StoreModel(db.Model):
     def json(self):
         return {
             'id': self.id,
-            'name': self.name, 
+            'name': self.name,
             'items': [item.json() for item in self.items]
         }
 
