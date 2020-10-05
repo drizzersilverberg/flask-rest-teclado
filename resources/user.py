@@ -17,7 +17,7 @@ USER_CREATED = 'User created successfully'
 USER_NOT_FOUND = 'User not found'
 USER_DELETED = 'User deleted'
 INVALID_CREDENTIALS = 'Invalid credentials'
-LOGOUT_SUCCESS = 'Successfully logged out.'
+LOGOUT_SUCCESS = 'User <id={user_id}> successfully logged out.'
 
 _user_parser = reqparse.RequestParser()
 _user_parser.add_argument('username',
@@ -89,8 +89,9 @@ class UserLogout(Resource):
     @jwt_required
     def post(cls):
         jti = get_raw_jwt()['jti']
+        user_id = get_jwt_identity()
         BLACKLIST.add(jti)
-        return {'message': LOGOUT_SUCCESS}, 200
+        return {'message': LOGOUT_SUCCESS.format(user_id=user_id)}, 200
 
 
 class TokenRefresh(Resource):
