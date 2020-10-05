@@ -16,13 +16,15 @@ class Store(Resource):
                         help=BLANK_ERROR.format('name')
                         )
 
-    def get(self, id: int):
+    @classmethod
+    def get(cls, id: int):
         store = StoreModel.find_by_id(id)
         if store:
             return store.json()
         return {'message': STORE_NOT_FOUND}, 404
 
-    def delete(self, id: int):
+    @classmethod
+    def delete(cls, id: int):
         store = StoreModel.find_by_id(id)
         if store:
             store.delete_from_db()
@@ -30,10 +32,12 @@ class Store(Resource):
 
 
 class StoreList(Resource):
-    def get(self):
+    @classmethod
+    def get(cls):
         return {'stores': [store.json() for store in StoreModel.find_all()]}
 
-    def post(self):
+    @classmethod
+    def post(cls):
         data = Store.parser.parse_args()
 
         if StoreModel.find_by_id(data['name']):

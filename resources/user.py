@@ -33,7 +33,8 @@ _user_parser.add_argument('password',
 
 
 class UserRegister(Resource):
-    def post(self):
+    @classmethod
+    def post(cls):
         data = _user_parser.parse_args()
 
         if UserModel.find_by_username(data['username']):
@@ -46,14 +47,14 @@ class UserRegister(Resource):
 
 
 class User(Resource):
-    @ classmethod
+    @classmethod
     def get(cls, user_id: int):
         user = UserModel.find_by_id(user_id)
         if not user:
             return {'message': USER_NOT_FOUND}, 404
         return user.json()
 
-    @ classmethod
+    @classmethod
     def delete(cls, user_id: int):
         user = UserModel.find_by_id(user_id)
         if not user:
@@ -63,7 +64,7 @@ class User(Resource):
 
 
 class UserLogin(Resource):
-    @ classmethod
+    @classmethod
     def post(cls):
         # get data from parser
         data = _user_parser.parse_args()
@@ -84,16 +85,18 @@ class UserLogin(Resource):
 
 
 class UserLogout(Resource):
+    @classmethod
     @jwt_required
-    def post(self):
+    def post(cls):
         jti = get_raw_jwt()['jti']
         BLACKLIST.add(jti)
         return {'message': LOGOUT_SUCCESS}, 200
 
 
 class TokenRefresh(Resource):
-    @ jwt_refresh_token_required
-    def post(self):
+    @classmethod
+    @jwt_refresh_token_required
+    def post(cls):
         current_user = get_jwt_identity()
         new_token = create_access_token(identity=current_user, fresh=False)
         return {'access_token': new_token}, 200
