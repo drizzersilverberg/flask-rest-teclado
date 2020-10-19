@@ -1,11 +1,12 @@
-from marshmallow import Schema, fields
+from ma import ma
+from models.user import UserModel
 
 
-class UserSchema(Schema):
+class UserSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
+        model = UserModel
         load_only = ('password',)
         dump_only = ('id',)
+        load_instance = True
 
-    id = fields.Int()
-    username = fields.Str(required=True)
-    password = fields.Str(required=True)
+    # the fields were deleted and we use fields from the usermodel instead

@@ -1,6 +1,8 @@
 from flask import Flask, jsonify
 from flask_restful import Api
 from flask_jwt_extended import JWTManager
+
+from ma import ma
 from db import db
 from resources.user import (
     UserRegister,
@@ -50,4 +52,5 @@ api.add_resource(UserLogout, '/logout')
 
 if __name__ == '__main__':
     db.init_app(app)
+    ma.init_app(ma)
     app.run(port=5000, debug=True)
