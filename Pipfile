@@ -12,6 +12,7 @@ autopep8 = "*"
 flask-sqlalchemy = "*"
 flask-jwt-extended = "*"
 marshmallow = "*"
+flask-marshmallow = "*"
 
 [requires]
 python_version = "3.8"
